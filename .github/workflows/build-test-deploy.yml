@@ -5,7 +5,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout out code
+      - name: checkout code
         uses: actions/checkout@v3
       - run: "echo $(cat hello_world.txt)"
 
@@ -15,3 +15,18 @@ jobs:
           node-version: '18.x'
       - run: npm install
       - run: npm run build
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      - run: "echo $(cat hello_world.txt)"
+
+      - name: use node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+      - run: npm install
+      - run: npm run test
